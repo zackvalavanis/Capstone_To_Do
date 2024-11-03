@@ -1,7 +1,15 @@
 class ActivitiesController < ApplicationController
   def index 
-    @activities = Activity.all
-    render :index
+    if current_user
+      @activities = Activity.where(user_id: current_user.id)
+      if @activities.any? 
+      render :index
+      else 
+        render json: { message: "No activities found"}, status: :ok
+      end 
+    else
+      render json: { error: 'Unauthorized'}, status: :unauthorized
+    end 
   end 
 
   def show 
