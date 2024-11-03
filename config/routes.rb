@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post '/activities' => 'activites#create'
   patch '/activities/:id'=> 'activites#udpate'
   delete '/activities/:id' => 'activities#destroy'
+  #Sessions 
+  post '/sessions' => 'sessions#create'
 
   # Defines the root path route ("/")
   # root "posts#index"
