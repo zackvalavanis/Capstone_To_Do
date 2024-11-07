@@ -32,6 +32,7 @@ class ActivitiesController < ApplicationController
       render json: {error: @activity.errors.full_messages}, status: :bad_request
     end 
   end 
+  end 
 
   def update
     @activity = Activity.find_by(id: params[:id]);
