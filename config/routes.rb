@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   #Activity
   get '/activities' => 'activities#index'
   get '/activities/:id' => 'activities#show'
-  post '/activities' => 'activites#create'
-  patch '/activities/:id'=> 'activites#udpate'
+  post '/activities' => 'activities#create'
+  patch '/activities/:id'=> 'activities#update'
   delete '/activities/:id' => 'activities#destroy'
   #Sessions 
   post '/sessions' => 'sessions#create'

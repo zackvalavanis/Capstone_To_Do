@@ -1,3 +1,3 @@
 json.id category.id
-json.type category.type 
+json.category_type category.category_type 
 json.activity_id category.activity_id

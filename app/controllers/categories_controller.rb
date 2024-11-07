@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
 
   def create 
     @category = Category.new(
-      category_typetype: params[:type], 
+      category_type: params[:category_type], 
       activity_id: params[:activity_id]
     )
     if @category.save
@@ -28,7 +28,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find_by(id: params[:id])
     if @category.update(
-      category_type: params[:type] || @category.type, 
+      category_type: params[:category_type] || @category.category_type, 
       activity_id: params[:activity_id] || @category.activity_id
     )
     render :show 

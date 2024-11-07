@@ -19,6 +19,7 @@ class ActivitiesController < ApplicationController
 
   def create 
     @activity = Activity.new( 
+      user_id: params[:user_id],
       name: params[:name], 
       date: params[:date], 
       time_start: params[:time_start], 
@@ -36,6 +37,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find_by(id: params[:id]);
 
     if @activity.update( 
+      user_id: params[:user_id],
       name: params[:name] || @activity.name, 
       date: params[:date] || @activity.date, 
       time_start: params[:time_start] || @activity.time_start, 
@@ -43,6 +45,7 @@ class ActivitiesController < ApplicationController
       finished: params[:finished] || @activity.finished
     )
     render json: @activity, status: :ok
+    @activity.save
     else 
       render json: {error: @activity.errors.full_messages}, status: :unprocessable_entity
     end 
