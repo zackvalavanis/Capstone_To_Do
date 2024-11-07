@@ -16,7 +16,13 @@ Rails.application.routes.draw do
   delete '/activities/:id' => 'activities#destroy'
   #Sessions 
   post '/sessions' => 'sessions#create'
-
+  #Categories 
+  get '/categories' => 'categories#index'
+  get '/categories/:id' => 'categories#show'
+  post '/categories' => 'categories#create'
+  patch '/categories/:id' => 'categories#update'
+  delete '/categories/:id' => 'categories#destroy'
+  
   # Defines the root path route ("/")
   # root "posts#index"
 end
