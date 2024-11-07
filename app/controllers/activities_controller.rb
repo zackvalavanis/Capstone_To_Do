@@ -22,8 +22,8 @@ class ActivitiesController < ApplicationController
       user_id: params[:user_id],
       name: params[:name], 
       date: params[:date], 
-      time_start: params[:time_start], 
-      time_end: params[:time_end], 
+      time_start: DateTime.parse(params[:time_start]), 
+      time_end: DateTime.parse(params[:time_end]), 
       finished: params[:finished]
     )
     if @activity.save 
@@ -36,12 +36,16 @@ class ActivitiesController < ApplicationController
   def update
     @activity = Activity.find_by(id: params[:id]);
 
+    if @activity
+      time_start = params[:time_start] ? DateTime.parse(params[:time_start]) : @activity.time_start
+      time_end = params[:time_end] ? DateTime.parse(params[:time_end]) : @activity.time_end
+
     if @activity.update( 
       user_id: params[:user_id],
       name: params[:name] || @activity.name, 
       date: params[:date] || @activity.date, 
-      time_start: params[:time_start] || @activity.time_start, 
-      time_end: params[:time_end] || @activity.time_end, 
+      time_start: time_start || @activity.time_start, 
+      time_end: time_end || @activity.time_end, 
       finished: params[:finished] || @activity.finished
     )
     render json: @activity, status: :ok
