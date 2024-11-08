@@ -60,7 +60,7 @@ class ActivitiesController < ApplicationController
   
     # Create the activity record
     @activity = Activity.new(
-      user_id: params[:user_id],
+      user_id: current_user.id,
       name: params[:name],
       date: date,
       start_datetime: start_datetime,
