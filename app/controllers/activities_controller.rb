@@ -88,11 +88,11 @@ class ActivitiesController < ApplicationController
       end_datetime = end_datetime.in_time_zone(current_user.time_zone)
 
       if @activity.update(
-        user_id: params[:user_id],
+        user_id: current_user.id,
         name: params[:name] || @activity.name,
-        date: date,
-        start_datetime: start_datetime,
-        end_datetime: end_datetime,
+        date: date || @activty.date,
+        start_datetime: start_datetime || @activity.start_datetime,
+        end_datetime: end_datetime || @activity.end_datetime,
         finished: params[:finished] || @activity.finished
       )
         render json: @activity, status: :ok
