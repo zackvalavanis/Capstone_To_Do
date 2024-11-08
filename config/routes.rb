@@ -8,14 +8,18 @@ Rails.application.routes.draw do
   #User
   get '/users' => "users#index"
   post '/users' => "users#create"
+  delete '/users/:id' => "users#destroy"
+
   #Activity
   get '/activities' => 'activities#index'
   get '/activities/:id' => 'activities#show'
   post '/activities' => 'activities#create'
   patch '/activities/:id'=> 'activities#update'
   delete '/activities/:id' => 'activities#destroy'
+
   #Sessions 
   post '/sessions' => 'sessions#create'
+
   #Categories 
   get '/categories' => 'categories#index'
   get '/categories/:id' => 'categories#show'
