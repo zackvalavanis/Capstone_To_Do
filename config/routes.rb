@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   #User
   get '/users' => "users#index"
   post '/users' => "users#create"
+  get 'users/current' => 'users#show'
   delete '/users/:id' => "users#destroy"
 
   #Activity

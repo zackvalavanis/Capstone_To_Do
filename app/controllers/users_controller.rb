@@ -3,6 +3,16 @@ class UsersController < ApplicationController
     @users = User.all
     render :index
   end 
+  
+  def show 
+    @user = current_user
+    if @user
+      render :show
+    else 
+      render json: { error: 'unauthorized'}, status: :unauthorized
+    end 
+  end
+
 
   def create
     time_zone = params[:time_zone] || "Central Time (US & Canada)"
