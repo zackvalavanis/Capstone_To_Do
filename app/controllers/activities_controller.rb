@@ -1,51 +1,46 @@
 class ActivitiesController < ApplicationController
-  before_action :set_activity, only: [:show, :update, :destroy]
-
-  # GET /activities
   def index
-    @activities = Activity.all
-    render json: @activities
+    if current_user
+      @activities = Activity.all
+      render :index
+    else
+      render json: { message: 'unauthorized' }
+    end
   end
 
-  # GET /activities/:id
   def show
-    render json: @activity
+    @activity = Activity.find_by(id: params[:id])
+    render :show
   end
 
-  # POST /activities
   def create
-    @activity = Activity.new(activity_params)
+    # Now we're directly accessing top-level params with permit
+    @activity = Activity.new(
+      user_id: current_user.id,
+      finished: params[:finished],
+      name: params[:name],
+      start_datetime: params[:start_datetime],
+      end_datetime: params[:end_datetime],
+      time_zone: params[:time_zone] || "America/Chicago"  # Default if missing
+    )
 
     if @activity.save
-      render json: @activity, status: :created, location: @activity
+      render json: @activity, status: :created
     else
       render json: @activity.errors, status: :unprocessable_entity
     end
-  end
-
-  # PATCH/PUT /activities/:id
-  def update
-    if @activity.update(activity_params)
-      render json: @activity
-    else
-      render json: @activity.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /activities/:id
-  def destroy
-    @activity.destroy
-  end
-
-  private
-
-  # Set the activity based on the ID in the params
-  def set_activity
-    @activity = Activity.find(params[:id])
-  end
-
-  # Only allow a trusted parameter "white list" through
-  def activity_params
-    params.require(:activity).permit(:user_id, :date, :finished, :name, :start_datetime, :end_datetime, :time_zone)
   end
 end
+
+
+
+# create_table "activities", force: :cascade do |t|
+#   t.integer "user_id"
+#   t.boolean "finished", default: false
+#   t.datetime "created_at", null: false
+#   t.datetime "updated_at", null: false
+#   t.string "name"
+#   t.datetime "start_datetime", precision: nil, null: false
+#   t.datetime "end_datetime", precision: nil, null: false
+#   t.string "time_zone", default: "America/Chicago"
+# end
