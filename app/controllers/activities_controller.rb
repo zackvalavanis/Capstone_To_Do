@@ -14,14 +14,28 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    # Now we're directly accessing top-level params with permit
+    # Extract date, start time, and end time from params
+    date = params[:date]
+    start_time = params[:start_datetime]
+    end_time = params[:end_datetime]
+    time_zone = params[:time_zone] || "America/Chicago"  # Default time zone if not provided
+
+    # Combine the date with the start and end time to form the full datetime string
+    start_datetime_str = "#{date} #{start_time}"
+    end_datetime_str = "#{date} #{end_time}"
+
+    # Convert the datetime string to the correct timezone using Time.zone
+    start_datetime = Time.zone.parse(start_datetime_str)
+    end_datetime = Time.zone.parse(end_datetime_str)
+
+    # Now we can create the activity with the properly formatted datetimes
     @activity = Activity.new(
       user_id: current_user.id,
       finished: params[:finished],
       name: params[:name],
-      start_datetime: params[:start_datetime],
-      end_datetime: params[:end_datetime],
-      time_zone: params[:time_zone] || "America/Chicago"  # Default if missing
+      start_datetime: start_datetime,
+      end_datetime: end_datetime,
+      time_zone: time_zone
     )
 
     if @activity.save
