@@ -44,6 +44,35 @@ class ActivitiesController < ApplicationController
     end
   end 
 
+  def update
+    @activity = Activity.find_by(id: params[:id])
+  
+    # Check if activity exists
+    if @activity
+      # Parse datetime params if provided
+      start_datetime_utc = Time.zone.parse(params[:start_datetime]).utc if params[:start_datetime].present?
+      end_datetime_utc = Time.zone.parse(params[:end_datetime]).utc if params[:end_datetime].present?
+  
+      # Update activity attributes
+      @activity.assign_attributes(
+        name: params[:name] || @activity.name, 
+        start_datetime: start_datetime_utc || @activity.start_datetime, 
+        end_datetime: end_datetime_utc || @activity.end_datetime, 
+        finished: params[:finished] || @activity.finished,
+        time_zone: params[:time_zone] || @activity.time_zone
+      )
+  
+      # Save the updated activity
+      if @activity.save
+        render json: @activity, status: :ok
+      else
+        render json: @activity.errors, status: :unprocessable_entity
+      end
+    else
+      render json: { message: 'Activity not found' }, status: :not_found
+    end
+  end
+  
 end
 
 
