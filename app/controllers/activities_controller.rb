@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController
   def index
     if current_user
-      @activities = Activity.all
+      @activities = Activity.where(user_id: current_user.id)
       render :index
     else
       render json: { message: 'unauthorized' }
@@ -74,15 +74,3 @@ class ActivitiesController < ApplicationController
   end
   
 end
-
-
-# create_table "activities", force: :cascade do |t|
-#   t.integer "user_id"
-#   t.boolean "finished", default: false
-#   t.datetime "created_at", null: false
-#   t.datetime "updated_at", null: false
-#   t.string "name"
-#   t.datetime "start_datetime", precision: nil, null: false
-#   t.datetime "end_datetime", precision: nil, null: false
-#   t.string "time_zone", default: "UTC"
-# end
