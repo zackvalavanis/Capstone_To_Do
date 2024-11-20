@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   
   # Defines the root path route ("/")
   # root "posts#index"
-  root "homepage#index"
+  root "homepages#index"
 
   get '/homepages' => "homepages#index"
 end
