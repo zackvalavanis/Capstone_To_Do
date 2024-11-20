@@ -34,6 +34,6 @@ Rails.application.routes.draw do
 
   get '/homepages' => "homepages#index"
 
-  get '/*path', to: 'react#index'
+  get '*path', to: 'react#index'
 
 end
