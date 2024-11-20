@@ -1,5 +1,5 @@
 class HomepagesController < ApplicationController
   def index 
-   render file: 'dist/index.html'
+   render json:: { message: 'hello'}'
   end 
 end

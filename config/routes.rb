@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get '/homepages' => "homepages#index"
 
-  get '*path', to: 'react#index', constraints: ->(req) do
-    !req.xhr? && req.format.html? && !req.path.start_with?('/favicon', '/robots.txt')
-  end
+  # get '*path', to: 'react#index', constraints: ->(req) do
+  #   !req.xhr? && req.format.html? && !req.path.start_with?('/favicon', '/robots.txt')
+  # end
 end
