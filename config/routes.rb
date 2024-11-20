@@ -36,4 +36,5 @@ Rails.application.routes.draw do
 
   get '*path', to: 'react#index', constraints: ->(req) do
     !req.xhr? && req.format.html? && !req.path.start_with?('/assets/', '/favicon', '/robots.txt')
+  end
 end
