@@ -33,4 +33,7 @@ Rails.application.routes.draw do
   root "homepages#index"
 
   get '/homepages' => "homepages#index"
+
+  get '*path', to: 'static#index', constraints: ->(req) { req.format.html? }
+
 end
